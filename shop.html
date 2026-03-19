@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HERITAGE THREADS | Shop</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script src="assets/js/emailjs-config.js"></script>
+  <script src="assets/js/sheets-config.js"></script>
+  <script src="assets/js/data.js"></script>
+</head>
+
+<body>
+
+<header class="site-header"><div class="container nav"><a class="brand" href="index.html"><h1 data-store-name>HERITAGE THREADS</h1><small>PREMIUM POLO COLLECTION</small></a><nav class="nav-links"><a href="index.html">Home</a><a href="shop.html">Shop</a><a href="about.html">About</a><a href="contact.html">Contact</a></nav><div class="nav-actions"><div id="guestNav" class="user-area"><a class="btn btn-light" href="login.html">Login</a><a class="btn btn-light" href="register.html">Register</a></div><div id="userNav" class="user-dropdown hidden"><button id="userTrigger" class="btn btn-light">Welcome, <span id="welcomeName"></span> ▼</button><div id="userMenu" class="dropdown-menu"><a href="account.html">My Account</a><a href="orders.html">My Orders</a><button onclick="logoutUser()">Logout</button></div></div><a class="btn btn-dark" href="cart.html">Cart <span class="pill" data-cart-count>0</span></a></div></div></header>
+<main><section class="container page-hero"><p class="eyebrow">Collection</p><h2 class="page-title">Shop All Polos</h2><p>Browse the collection</p></section><section class="container section"><div class="filters"><input id="searchInput" type="text" placeholder="Search polos by name or description"><select id="sortSelect"><option value="default">Sort products</option><option value="low">Price: low to high</option><option value="high">Price: high to low</option></select></div><div id="shopGrid" class="product-grid"></div></section></main>
+<footer class="site-footer"><div class="container footer-grid"><div><h4 data-store-name>HERITAGE THREADS</h4><p>Premium polos crafted for timeless style and everyday confidence.</p></div><div><h5>Quick Links</h5><a href="shop.html">Shop</a><a href="register.html">Register</a><a href="login.html">Login</a><a href="admin.html">Admin</a></div><div><h5>Contact</h5><p>Need help or have a question?</p><a class="btn btn-light" href="contact.html">Contact Us</a></div></div></footer>
+
+<script src="assets/js/email-service.js"></script><script src="assets/js/store.js"></script><script>(async()=>{await bootStorePage(); await renderShop();document.getElementById('searchInput').addEventListener('input',renderShop);document.getElementById('sortSelect').addEventListener('change',renderShop);})();</script>
+</body>
+</html>

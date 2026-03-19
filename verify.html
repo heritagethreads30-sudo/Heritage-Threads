@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HERITAGE THREADS | Verify Email</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script src="assets/js/emailjs-config.js"></script>
+  <script src="assets/js/sheets-config.js"></script>
+  <script src="assets/js/data.js"></script>
+</head>
+<body>
+<section class="auth-wrap">
+  <div class="auth-card">
+    <p class="eyebrow">Verify Account</p>
+    <h2 class="auth-title">Enter verification code.</h2>
+    <p class="muted">Check your email for the 6-digit code.</p>
+    <form id="verifyForm" class="form-grid">
+      <input class="field" id="verifyEmail" type="email" placeholder="Email address used to register">
+      <input class="field" id="verifyCode" type="text" placeholder="6-digit verification code" required>
+      <button class="btn btn-dark" type="submit">Verify Account</button>
+      <button class="btn btn-light" type="button" onclick="resendVerificationCode()">Resend Code</button>
+    </form>
+    <p class="form-note"><a href="login.html">Back to Login</a></p>
+  </div>
+</section>
+<script src="assets/js/email-service.js"></script>
+<script src="assets/js/auth.js"></script>
+<script>(async()=>{await bootAuthUi();})();</script>
+</body>
+</html>
