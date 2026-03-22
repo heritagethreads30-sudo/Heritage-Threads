@@ -571,17 +571,22 @@ function renderContactPage() {
   });
 }
 
-async function bootStorePage() {
-  // Instantly apply cached user/cart data to prevent UI flickering (logout/login glitch)
+function bootStorePage() {
   applyStoreBrand();
   updateCartCount();
   renderUserNav();
   initEmailJS();
-  
-  // Wait for background sync to complete
-  await (window.htReady || Promise.resolve());
-  
-  // Re-apply in case the remote sync changed the user's status or cart
-  updateCartCount();
-  renderUserNav();
+}
+
+if (window.htReady) {
+  window.htReady.then(() => {
+    updateCartCount();
+    renderUserNav();
+    if (document.getElementById('homeProducts')) renderHomeProducts('homeProducts', 4);
+    if (document.getElementById('shopGrid')) renderShop();
+    if (document.getElementById('productDetailBox')) renderProductDetails();
+    if (document.getElementById('cartList')) renderCart();
+    if (document.getElementById('ordersBox')) renderOrdersPage();
+    if (document.getElementById('accountBox')) renderAccountPage();
+  }).catch(e => console.error(e));
 }
