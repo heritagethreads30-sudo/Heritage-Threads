@@ -572,9 +572,16 @@ function renderContactPage() {
 }
 
 async function bootStorePage() {
-  await (window.htReady || Promise.resolve());
+  // Instantly apply cached user/cart data to prevent UI flickering (logout/login glitch)
   applyStoreBrand();
+  updateCartCount();
+  renderUserNav();
   initEmailJS();
+  
+  // Wait for background sync to complete
+  await (window.htReady || Promise.resolve());
+  
+  // Re-apply in case the remote sync changed the user's status or cart
   updateCartCount();
   renderUserNav();
 }
