@@ -572,6 +572,7 @@ function renderContactPage() {
 }
 
 async function bootStorePage() {
+  await (window.htReady || Promise.resolve());
   applyStoreBrand();
   initEmailJS();
   updateCartCount();
