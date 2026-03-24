@@ -82,6 +82,16 @@ function productCard(p) {
 async function renderHomeProducts(id, limit) {
   const box = document.getElementById(id);
   if (!box) return;
+
+  if (!window.htLoaded) {
+    box.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 40px; color: #666;">
+      <span style="display:inline-block; width:24px; height:24px; border:3px solid #ccc; border-top-color:#111; border-radius:50%; animation:spin 1s linear infinite;"></span>
+      <p style="margin-top:10px">Loading latest products...</p>
+      <style>@keyframes spin { to { transform: rotate(360deg); } }</style>
+    </div>`;
+    try { if (window.htReady) await window.htReady; } catch (e) { console.error(e); }
+  }
+
   box.innerHTML = getProducts().slice(0, limit || 4).map(productCard).join("");
 }
 
@@ -92,6 +102,15 @@ function goToProduct(id) {
 async function renderShop() {
   const box = document.getElementById("shopGrid");
   if (!box) return;
+
+  if (!window.htLoaded) {
+    box.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 40px; color: #666;">
+      <span style="display:inline-block; width:24px; height:24px; border:3px solid #ccc; border-top-color:#111; border-radius:50%; animation:spin 1s linear infinite;"></span>
+      <p style="margin-top:10px">Loading shop inventory...</p>
+      <style>@keyframes spin { to { transform: rotate(360deg); } }</style>
+    </div>`;
+    try { if (window.htReady) await window.htReady; } catch (e) { console.error(e); }
+  }
 
   let products = [...getProducts()];
   const q = (document.getElementById("searchInput")?.value || "").trim().toLowerCase();
@@ -328,6 +347,16 @@ async function renderProductDetails() {
   const detailBox = document.getElementById("productDetailBox");
   if (!imageBox || !detailBox) return;
 
+  if (!window.htLoaded) {
+    imageBox.innerHTML = `<div style="text-align: center; padding: 40px; color: #666; background: #f9f9f9; border-radius: 12px; height: 400px; display: flex; align-items: center; justify-content: center;">
+      <span style="display:inline-block; width:24px; height:24px; border:3px solid #ccc; border-top-color:#111; border-radius:50%; animation:spin 1s linear infinite;"></span>
+    </div>`;
+    detailBox.innerHTML = `<div class="detail-card" style="padding: 40px; color: #666;">
+      <p style="margin-top:10px">Loading product details...</p>
+    </div>`;
+    try { if (window.htReady) await window.htReady; } catch (e) { console.error(e); }
+  }
+
   const params = new URLSearchParams(window.location.search);
   const id = params.get("id");
   const p = getProductById(id) || getProducts()[0];
@@ -371,9 +400,18 @@ async function renderProductDetails() {
   `;
 }
 
-function renderCart() {
+async function renderCart() {
   const list = document.getElementById("cartList");
   if (!list) return;
+
+  if (!window.htLoaded) {
+    list.innerHTML = `<div style="text-align: center; padding: 40px; color: #666;">
+      <span style="display:inline-block; width:24px; height:24px; border:3px solid #ccc; border-top-color:#111; border-radius:50%; animation:spin 1s linear infinite;"></span>
+      <p style="margin-top:10px">Loading cart data...</p>
+      <style>@keyframes spin { to { transform: rotate(360deg); } }</style>
+    </div>`;
+    try { if (window.htReady) await window.htReady; } catch (e) { console.error(e); }
+  }
 
   const cart = getCart();
 
@@ -468,10 +506,19 @@ async function checkoutCartOnWhatsApp() {
 }
 
 async function renderAccountPage() {
-  await (window.htReady || Promise.resolve());
-  const user = getCurrentUser();
   const box = document.getElementById("accountBox");
   if (!box) return;
+
+  if (!window.htLoaded) {
+    box.innerHTML = `<div style="text-align: center; padding: 40px; color: #666;">
+      <span style="display:inline-block; width:24px; height:24px; border:3px solid #ccc; border-top-color:#111; border-radius:50%; animation:spin 1s linear infinite;"></span>
+      <p style="margin-top:10px">Loading account data...</p>
+      <style>@keyframes spin { to { transform: rotate(360deg); } }</style>
+    </div>`;
+    try { if (window.htReady) await window.htReady; } catch (e) { console.error(e); }
+  }
+
+  const user = getCurrentUser();
 
   if (!user) {
     box.innerHTML = `<div class="auth-card"><h2 class="auth-title">Please login first.</h2><p class="muted">You need to sign in to view your account.</p><div class="hero-actions"><a class="btn btn-dark" href="login.html">Login</a></div></div>`;
@@ -494,9 +541,19 @@ async function renderAccountPage() {
 }
 
 async function renderOrdersPage() {
-  const user = getCurrentUser();
   const box = document.getElementById("ordersBox");
   if (!box) return;
+
+  if (!window.htLoaded) {
+    box.innerHTML = `<div style="text-align: center; padding: 40px; color: #666;">
+      <span style="display:inline-block; width:24px; height:24px; border:3px solid #ccc; border-top-color:#111; border-radius:50%; animation:spin 1s linear infinite;"></span>
+      <p style="margin-top:10px">Loading orders...</p>
+      <style>@keyframes spin { to { transform: rotate(360deg); } }</style>
+    </div>`;
+    try { if (window.htReady) await window.htReady; } catch (e) { console.error(e); }
+  }
+
+  const user = getCurrentUser();
 
   if (!user) {
     box.innerHTML = `<div class="auth-card"><h2 class="auth-title">Please login first.</h2><p class="muted">You need to sign in to view your orders.</p><div class="hero-actions"><a class="btn btn-dark" href="login.html">Login</a></div></div>`;
@@ -582,11 +639,5 @@ if (window.htReady) {
   window.htReady.then(() => {
     updateCartCount();
     renderUserNav();
-    if (document.getElementById('homeProducts')) renderHomeProducts('homeProducts', 4);
-    if (document.getElementById('shopGrid')) renderShop();
-    if (document.getElementById('productDetailBox')) renderProductDetails();
-    if (document.getElementById('cartList')) renderCart();
-    if (document.getElementById('ordersBox')) renderOrdersPage();
-    if (document.getElementById('accountBox')) renderAccountPage();
   }).catch(e => console.error(e));
 }
