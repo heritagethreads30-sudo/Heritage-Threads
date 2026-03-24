@@ -1,10 +1,5 @@
 (function seedData(){
- const defaultProducts=[
-  {id:"p1",name:"Classic White Polo",price:28000,image:"https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=1000&q=80",tag:"Best Seller",description:"Fresh clean white polo made for a smart and polished everyday look.",stock:12},
-  {id:"p2",name:"Midnight Black Polo",price:30000,image:"https://images.unsplash.com/photo-1503341504253-dff4815485f1?auto=format&fit=crop&w=1000&q=80",tag:"New Drop",description:"A rich black polo with premium finish and elegant style.",stock:4},
-  {id:"p3",name:"Navy Signature Polo",price:32000,image:"https://images.unsplash.com/photo-1516826957135-700dedea698c?auto=format&fit=crop&w=1000&q=80",tag:"Premium",description:"Deep navy polo crafted for confident modern dressing.",stock:0},
-  {id:"p4",name:"Wine Crest Polo",price:31500,image:"https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=1000&q=80",tag:"Limited",description:"Elegant wine-colored polo designed to stand out with class.",stock:7}
- ];
+ const defaultProducts=[];
  const adminEmail="heritagethreads30@gmail.com",adminPassword="Joshuajoe2323";
  const defaultUsers=[{id:"admin_1",firstName:"Main",middleName:"",lastName:"Admin",email:adminEmail,phone:"09016654210",password:adminPassword,role:"admin",status:"active",verified:true,createdAt:new Date().toISOString()}];
  const defaultSettings={storeName:"HERITAGE THREADS",whatsappPhone:"09016654210",adminEmail:adminEmail};
@@ -89,7 +84,7 @@ async function __syncRemoteToLocal() {
   }
 }
 
-window.htReady = __syncRemoteToLocal();
+window.htReady = __syncRemoteToLocal().then(() => { window.htLoaded = true; });
 
 function getProducts(){return JSON.parse(localStorage.getItem("ht_products")||"[]")}
 function saveProducts(v){localStorage.setItem("ht_products",JSON.stringify(v)); __sheetPost("overwriteProducts",{products:v}).catch(()=>{});}
