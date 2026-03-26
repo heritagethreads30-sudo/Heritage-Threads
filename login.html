@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HERITAGE THREAD | Login</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="icon" href="https://i.ibb.co/zHxdw3YX/favicon.jpg" type="image/jpeg">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script src="assets/js/emailjs-config.js"></script>
+  <script src="assets/js/sheets-config.js"></script>
+  <script src="assets/js/data.js"></script>
+</head>
+
+<body>
+<section class="auth-wrap"><div class="auth-card"><p class="eyebrow">Welcome Back</p><h2 class="auth-title">Login to your account.</h2><p class="muted">Customers and admin use the same sign in page.</p><form id="loginForm" class="form-grid"><input class="field" id="loginEmail" type="email" placeholder="Email address" required><input class="field" id="loginPassword" type="password" placeholder="Password" required><button class="btn btn-dark" type="submit">Login</button></form><p class="form-note"><a href="forgot-password.html">Forgot password?</a></p><p class="form-note">Need an account? <a href="register.html">Register here</a></p><p class="form-note"><a href="index.html">← Back to Home</a></p></div></section>
+<script src="assets/js/email-service.js"></script><script src="assets/js/auth.js"></script><script>(async()=>{await bootAuthUi();})();</script>
+</body>
+</html>
