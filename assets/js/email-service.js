@@ -41,7 +41,8 @@ async function sendVerificationEmail(email, firstName, code) {
     );
     return { ok: true };
   } catch (err) {
-    return { ok: false, message: "Verification email failed." };
+    console.error("EmailJS Error:", err);
+    return { ok: false, message: "Failed to send verification email. Please try again." };
   }
 }
 
@@ -62,7 +63,8 @@ async function sendResetEmail(email, firstName, code) {
     );
     return { ok: true };
   } catch (err) {
-    return { ok: false, message: "Reset email failed." };
+    console.error("EmailJS Error:", err);
+    return { ok: false, message: "Failed to send reset email. Please try again." };
   }
 }
 
@@ -83,6 +85,7 @@ async function sendContactEmail(payload) {
     );
     return { ok: true };
   } catch (err) {
-    return { ok: false, message: "Message failed to send." };
+    console.error("EmailJS Error:", err);
+    return { ok: false, message: "Failed to send message. Please try again." };
   }
 }
