@@ -17,7 +17,14 @@ async function bootAuthUi() {
 
   const rememberedVerifyEmail = localStorage.getItem("ht_verify_email") || "";
   const verifyEmailInput = document.getElementById("verifyEmail");
-  if (verifyEmailInput && rememberedVerifyEmail) verifyEmailInput.value = rememberedVerifyEmail;
+  if (verifyEmailInput && rememberedVerifyEmail) {
+    verifyEmailInput.value = rememberedVerifyEmail;
+    verifyEmailInput.readOnly = true;
+    const verifyMessage = document.querySelector(".auth-card .muted");
+    if (verifyMessage) {
+      verifyMessage.innerHTML = `A verification code has been sent to <strong>${rememberedVerifyEmail}</strong>.`;
+    }
+  }
 
   const rememberedResetEmail = localStorage.getItem("ht_reset_email") || "";
   const resetEmailInput = document.getElementById("resetEmail");
@@ -26,6 +33,14 @@ async function bootAuthUi() {
 
 async function registerUser(e) {
   e.preventDefault();
+
+  const btn = e.target.querySelector('button[type="submit"]');
+  const originalText = btn ? btn.innerText : "Create Account";
+  
+  if (btn) {
+    btn.disabled = true;
+    btn.innerText = "Please wait...";
+  }
 
   const users = getUsers();
   const email = document.getElementById("regEmail").value.trim().toLowerCase();
@@ -38,16 +53,19 @@ async function registerUser(e) {
 
   if (!firstName || !lastName || !email || !phone || !password || !confirmPassword) {
     showAlert("Fill all required fields.");
+    if (btn) { btn.disabled = false; btn.innerText = originalText; }
     return;
   }
 
   if (users.find((u) => u.email === email)) {
     showAlert("That email already exists.");
+    if (btn) { btn.disabled = false; btn.innerText = originalText; }
     return;
   }
 
   if (password !== confirmPassword) {
     showAlert("Passwords do not match.");
+    if (btn) { btn.disabled = false; btn.innerText = originalText; }
     return;
   }
 
@@ -71,9 +89,13 @@ async function registerUser(e) {
   const sent = await sendVerificationEmail(email, firstName, code);
   if (!sent.ok) {
     showAlert(sent.message || "Verification email failed.");
+    if (btn) { btn.disabled = false; btn.innerText = originalText; }
     return;
   }
 
+  if (btn) {
+    btn.innerText = "Verification code sent...";
+  }
   showAlert("Verification code sent.");
   setTimeout(() => {
     window.location.href = "verify.html";
