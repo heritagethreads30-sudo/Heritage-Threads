@@ -57,6 +57,13 @@ async function registerUser(e) {
     return;
   }
 
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email)) {
+    showAlert("Please enter a valid email address.");
+    if (btn) { btn.disabled = false; btn.innerText = originalText; }
+    return;
+  }
+
   if (users.find((u) => u.email === email)) {
     showAlert("That email already exists.");
     if (btn) { btn.disabled = false; btn.innerText = originalText; }
