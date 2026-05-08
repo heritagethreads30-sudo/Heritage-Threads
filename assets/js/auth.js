@@ -29,6 +29,17 @@ async function bootAuthUi() {
   const rememberedResetEmail = localStorage.getItem("ht_reset_email") || "";
   const resetEmailInput = document.getElementById("resetEmail");
   if (resetEmailInput && rememberedResetEmail) resetEmailInput.value = rememberedResetEmail;
+
+  setTimeout(() => {
+    const emailInput = document.getElementById("loginEmail");
+    const passwordInput = document.getElementById("loginPassword");
+    if (emailInput && passwordInput) {
+      if (emailInput.value || passwordInput.value) {
+        emailInput.dispatchEvent(new Event("input", { bubbles: true }));
+        passwordInput.dispatchEvent(new Event("input", { bubbles: true }));
+      }
+    }
+  }, 400);
 }
 
 async function registerUser(e) {
@@ -191,8 +202,11 @@ function verifyUserCode(e) {
 function loginUser(e) {
   e.preventDefault();
 
-  const email = document.getElementById("loginEmail").value.trim().toLowerCase();
-  const password = document.getElementById("loginPassword").value.trim();
+  const emailInput = document.getElementById("loginEmail");
+  const passwordInput = document.getElementById("loginPassword");
+
+  const email = emailInput.value.trim().toLowerCase();
+  const password = passwordInput.value;
   const user = getUsers().find((u) => u.email === email && u.password === password);
 
   if (!user) {
